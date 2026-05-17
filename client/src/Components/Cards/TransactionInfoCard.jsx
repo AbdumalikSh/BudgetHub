@@ -13,6 +13,7 @@ const TransactionInfoCard = ({
   amount,
   type,
   hideDeleteBtn,
+  onDelete,
 }) => {
   const currency = import.meta.env.VITE_CURRENCY;
 
