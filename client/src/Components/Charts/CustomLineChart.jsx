@@ -1,21 +1,16 @@
 import React from "react";
 import {
-  Bar,
-  BarChart,
+  Area,
+  AreaChart,
   CartesianGrid,
-  Cell,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
 
-const CustomBarChart = ({ data }) => {
+const CustomLineChart = ({ data }) => {
   const currency = import.meta.env.VITE_CURRENCY;
-  const getBarColor = (index) => {
-    return index % 2 === 0 ? "#875CF5" : "#CFBEFB";
-  };
-
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       return (
@@ -37,7 +32,7 @@ const CustomBarChart = ({ data }) => {
   return (
     <div className="bg-white mt-6">
       <ResponsiveContainer width="100%" height={300}>
-        <BarChart data={data}>
+        <AreaChart data={data}>
           <CartesianGrid stroke="none" />
           <XAxis
             dataKey="month"
@@ -47,21 +42,18 @@ const CustomBarChart = ({ data }) => {
           <YAxis tick={{ fontSize: 12, fill: "#555" }} stroke="none" />
 
           <Tooltip content={<CustomTooltip />} />
-          <Bar
+          <Area
+            type="monotone"
             dataKey="amount"
-            fill="#FF8042"
-            radius={[10, 10, 0, 0]}
-            activeDot={{ r: 8, fill: "yellow" }}
-            activeStyle={{ fill: "green" }}
-          >
-            {data?.map((entry, index) => (
-              <Cell key={index} fill={getBarColor(index)} />
-            ))}
-          </Bar>
-        </BarChart>
+            stroke="#875CF5"
+            fill="url(#incomeGradient)"
+            strokeWidth={3}
+            dot={{ r: 3, fill: "#AB8DF8" }}
+          />
+        </AreaChart>
       </ResponsiveContainer>
     </div>
   );
 };
 
-export default CustomBarChart;
+export default CustomLineChart;
